@@ -54,7 +54,7 @@ public class SinglyLinkedList extends Structure<String> {
 
     private String add(String value, Node position){
         _Node tmp = head;
-        while(!tmp.data.equals(position)){
+        while(tmp.data != null && !tmp.data.equals(position)){
             if(tmp.next == null){
                 tmp.next = new _Node(new Node<>(value), null);
                 return null;
