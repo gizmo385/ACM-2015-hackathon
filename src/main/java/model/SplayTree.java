@@ -13,7 +13,7 @@ public class SplayTree extends Structure<Integer> {
         test.add(6);
         test.add(5);
         test.add(7);
-        test.zigZag(test.head.right, test.head.right.left);
+        test.zigZig(test.head.right, test.head.right.right);
         System.out.println("Success?");
     }
     _Node head;
@@ -57,7 +57,7 @@ public class SplayTree extends Structure<Integer> {
         return null;
     }
 
-    public String zig(_Node parent, _Node child){
+    public String zig(_Node child, _Node parent){
         if(parent.left == child){
             _Node tmp = child.right;
             child.right = parent;
@@ -77,7 +77,7 @@ public class SplayTree extends Structure<Integer> {
         return null;
     }
 
-    private String zigZag(_Node parent, _Node child){
+    private String zigZag(_Node child, _Node parent){
         _Node tmp = parent.parent;
         child.parent = tmp.parent;
         if(tmp == head) {
@@ -141,6 +141,16 @@ public class SplayTree extends Structure<Integer> {
             tmp.left = parent.left;
             parent.left.parent = tmp;
             parent.left = tmp;
+            tmp.parent = parent;
+        }
+        else{
+            parent.right = child.left;
+            parent.right.parent = parent;
+            child.left = parent;
+            parent.parent = child;
+            tmp.right = parent.right;
+            parent.right.parent = tmp;
+            parent.right = tmp;
             tmp.parent = parent;
         }
         return null;
