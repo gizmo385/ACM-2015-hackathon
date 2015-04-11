@@ -10,14 +10,14 @@ public class BinaryTree {
         Node left;
         Node right;
 
-        public Node(String data, Node, left, Node right) {
+        public Node(String data, Node left, Node right) {
             this.data = data;
             this.left = left;
             this.right = right;
         }
     }
 
-    final Node root;
+    final Node root = null;
 
     private boolean add(String data){
         return addHelp(root, data);
@@ -45,7 +45,7 @@ public class BinaryTree {
     }
 
     private boolean delete(Node toDelete) {
-        return deleteHelp(root, data);
+        return deleteHelp(root, toDelete.data);
     }
 
     private Node parent = null;
@@ -82,9 +82,9 @@ public class BinaryTree {
         }
         parent = node;
         if (node.data.compareTo(data) > 0) {
-            return deleteNodeBST(node.left, data);
+            return deleteHelp(node.left, data);
         } else {
-            return deleteNodeBST(node.right, data);
+            return deleteHelp(node.right, data);
         }
     }
 
