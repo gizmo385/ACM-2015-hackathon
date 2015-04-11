@@ -1,16 +1,21 @@
 package Model;
 
-import Util.Tuple;
+import Util.Argumentable;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.function.Function;
 
 /**
  * Created by jkoike on 4/10/15.
  */
 public abstract class Structure<E> {
-    abstract Iterator<E> walk(); // Return an iterator that walks through every node in the structure
-    abstract HashMap<String, Function<Object[], Object>> getOperations();
-    abstract Tuple<String, Class[]>[] getOperationInformation();
+    private HashMap<String, HashMap<String, Argumentable>> operations;
+    public abstract boolean setOperation(String name); // Returns true if success, false if operation doesn't exist
+    public abstract boolean setArgument(String name, Object value); // Returns true if success, false if arg doesn't exist
+    public HashMap<String, HashMap<String, Argumentable>> getOperations() {
+        return operations; // TODO: Make this a deep clone. Fuck it for now.
+    }
+
+    protected void setOperations(HashMap<String, HashMap<String, Argumentable>> operations) {
+        this.operations = operations;
+    }
 }
