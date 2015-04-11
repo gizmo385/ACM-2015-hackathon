@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Graphics;
+
 /**
  * Created by jkoike on 4/11/15.
  */
@@ -154,6 +156,10 @@ public class SplayTree extends Structure<Integer> {
             tmp.parent = parent;
         }
         return null;
+    }
+
+    public void render(Graphics g) {
+        //TODO
     }
 
     private class _Node{

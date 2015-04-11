@@ -7,6 +7,7 @@ import javax.swing.border.Border;;
 import javax.swing.BorderFactory;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,8 +24,10 @@ import controller.Controller;
 public class ControlsPanel extends JPanel implements ActionListener, WindowListener {
 
     private final int WIDTH, HEIGHT;
+    private Component parent;
 
-    public ControlsPanel(int width, int height) {
+    public ControlsPanel(Component parent, int width, int height) {
+        this.parent = parent;
         this.WIDTH = width;
         this.HEIGHT = height;
         super.setSize(WIDTH, HEIGHT);
@@ -72,6 +75,7 @@ public class ControlsPanel extends JPanel implements ActionListener, WindowListe
 
         if( errorMessage == null ) {
             JOptionPane.showMessageDialog(this, "The method executed successfully!", "Success!", JOptionPane.INFORMATION_MESSAGE);
+            parent.repaint();
         } else {
             JOptionPane.showMessageDialog(this, "The execution failed with the following error: " + errorMessage, "Error!", JOptionPane.ERROR_MESSAGE);
         }

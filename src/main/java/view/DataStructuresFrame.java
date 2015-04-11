@@ -26,7 +26,7 @@ public class DataStructuresFrame extends JFrame {
 
         // Components and component properties
         this.drawingPanel = new DrawingPanel(WIDTH - 5, 300);
-        this.controlPanel = new ControlsPanel(300, 300);
+        this.controlPanel = new ControlsPanel(this, 300, 300);
         this.controlPanel.setLocation(0, 305);
 
         // Add the components to the view
@@ -36,6 +36,12 @@ public class DataStructuresFrame extends JFrame {
 
     public static void main(String[] args) {
         SinglyLinkedList sll = new SinglyLinkedList();
+        sll.add("1");
+        sll.add("2");
+        sll.add("3");
+        sll.add("4");
+        sll.add("5");
+        sll.add("6");
         Controller.setStructure(sll);
         DataStructuresFrame dsf = new DataStructuresFrame();
 

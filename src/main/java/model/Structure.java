@@ -13,9 +13,12 @@ import java.util.HashMap;
  */
 public abstract class Structure<E> implements Renderable {
     protected HashMap<String, HashMap<String, Argumentable>> operations;
+    protected HashMap<String, Object> args;
+    protected String operation;
 
     public Structure() {
         this.operations = new HashMap<>();
+        this.args = new HashMap<>();
     }
 
     /**
@@ -23,9 +26,10 @@ public abstract class Structure<E> implements Renderable {
      * @return True if the operation exists and is possible, false otherwise
      */
     public boolean setOperation(String name) {
-        if(!ops.containsKey(name))
+        if(!operations.containsKey(name))
             return false;
         operation = name;
+        args.clear();
         return true;
     }
 
@@ -35,7 +39,7 @@ public abstract class Structure<E> implements Renderable {
      * @return True if the argument exists and is being set to a valid value, false otherwise
      */
     public boolean setArgument(String name, Object value) {
-        if(!ops.get(operation).containsKey(name))
+        if(!operations.get(operation).containsKey(name))
             return false;
         args.put(name, value);
         return true;
@@ -51,10 +55,10 @@ public abstract class Structure<E> implements Renderable {
      *      "delete" -> "toDelete" -> Node
      */
     public HashMap<String, HashMap<String, Argumentable>> getOperations() {
-        return ops; // TODO: Make this a deep clone. Fuck it for now.
+        return operations; // TODO: Make this a deep clone. Fuck it for now.
     }
 
     protected void setOperations(HashMap<String, HashMap<String, Argumentable>> operations) {
-        this.ops = operations;
+        this.operations = operations;
     }
 }

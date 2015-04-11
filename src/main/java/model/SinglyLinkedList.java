@@ -21,8 +21,7 @@ public class SinglyLinkedList extends Structure<String> {
         operations.put("add", new HashMap<>());
         operations.put("delete", new HashMap<>());
         operations.get("add").put("data", Argumentable.String);
-        operations.get("add").put("prev", Argumentable.Node);
-        operations.get("delete").put("toDelete", Argumentable.Node);
+        operations.get("delete").put("toDelete", Argumentable.String);
     }
 
     @Override
@@ -45,28 +44,33 @@ public class SinglyLinkedList extends Structure<String> {
     public String go() {
         switch(operation){
             case "add":
-                return add((String)args.get("value"), (Node)args.get("prev"));
+                return add((String)args.get("value"));
             case "delete":
-                return delete((Node)args.get("toDelete"));
+                return delete((String)args.get("toDelete"));
             default: return null;
         }
     }
 
-    private String add(String value, Node position){
-        _Node tmp = head;
-        while(tmp.data != null && !tmp.data.equals(position)){
-            if(tmp.next == null){
-                tmp.next = new _Node(new Node<>(value), null);
-                return null;
-            }
-            else tmp = tmp.next;
-        }
-        tmp.next = new _Node(new Node<>(value), null);
+    //private String add(String value, Node position){
+    public String add(String value) {
+        _Node temp = new _Node(head.data, head.next);
+        head.data = new Node(value);
+        head.next = temp;
+
+        //while(tmp.data != null && !tmp.data.equals(position)){
+            //if(tmp.next == null){
+                //tmp.next = new _Node(new Node<>(value), null);
+                //return null;
+            //}
+            //else tmp = tmp.next;
+        //}
+        //tmp.next = new _Node(new Node<>(value), null);
         return null;
     }
 
-    private String delete(Node toDelete){
+    private String delete(String toDelete){
         _Node tmp = head;
+        Node n = new Node(toDelete);
         while(!tmp.data.equals(toDelete)){
             if(tmp.next == null){
                 return "Node never existed!";
@@ -82,18 +86,20 @@ public class SinglyLinkedList extends Structure<String> {
         int currentX = 20;
         int currentY = 50;
 
-        Polygon arrowHead = new Polygon();
-        arrowHead.addPoint( 0,5);
-        arrowHead.addPoint( -5, -5);
-        arrowHead.addPoint( 5,-5);
-
         while( tmp.data != null && tmp.next != null ) {
             // Draw the node
             g.drawRect(currentX, currentY, 60, 60);
 
             // Draw the arrow
-            g.drawRect(currentX + 60, currentY, 20, 1);
-            g.drawPolygon(arrowHead);
+            g.drawRect(currentX + 60, currentY + 30, 20, 1);
+
+            if( tmp.data != null ) {
+                g.drawString(tmp.toString(), currentX + 3, currentY + 30);
+            }
+
+            currentX += 80;
+
+            tmp = tmp.next;
         }
     }
 
@@ -103,6 +109,10 @@ public class SinglyLinkedList extends Structure<String> {
         protected _Node(Node<String> data, _Node next){
             this.data = data;
             this.next = next;
+        }
+
+        public String toString() {
+            return data.toString();
         }
     }
 }
