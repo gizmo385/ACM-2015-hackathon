@@ -12,20 +12,32 @@ import java.util.HashMap;
  *  setArgument is called to fill the arguments for our operation
  */
 public abstract class Structure<E> {
-    private HashMap<String, HashMap<String, Argumentable>> operations;
+    HashMap<String, Object> args;
+    String operation;
+    protected HashMap<String, HashMap<String, Argumentable>> ops;
 
     /**
      * @param name Name of the operation to be done
      * @return True if the operation exists and is possible, false otherwise
      */
-    public abstract boolean setOperation(String name);
+    public boolean setOperation(String name) {
+        if(!ops.containsKey(name))
+            return false;
+        operation = name;
+        return true;
+    }
 
     /**
      * @param name Name of the argument being set
      * @param value Value to set the argument to
      * @return True if the argument exists and is being set to a valid value, false otherwise
      */
-    public abstract boolean setArgument(String name, Object value);
+    public boolean setArgument(String name, Object value) {
+        if(!ops.get(operation).containsKey(name))
+            return false;
+        args.put(name, value);
+        return true;
+    }
     public abstract String go(); // Does the thing. Returns null if success, fail message if fail
 
     /**
@@ -37,10 +49,10 @@ public abstract class Structure<E> {
      *      "delete" -> "toDelete" -> Node
      */
     public HashMap<String, HashMap<String, Argumentable>> getOperations() {
-        return operations; // TODO: Make this a deep clone. Fuck it for now.
+        return ops; // TODO: Make this a deep clone. Fuck it for now.
     }
 
     protected void setOperations(HashMap<String, HashMap<String, Argumentable>> operations) {
-        this.operations = operations;
+        this.ops = operations;
     }
 }

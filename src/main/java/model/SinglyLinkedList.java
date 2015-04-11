@@ -12,7 +12,6 @@ public class SinglyLinkedList extends Structure<String> {
     final _Node head;
     HashMap<String, Object> args;
     String operation;
-    HashMap<String, HashMap<String, Argumentable>> ops;
     public SinglyLinkedList(){
         head = new _Node(null, null);
         args = new HashMap<>();
@@ -22,22 +21,6 @@ public class SinglyLinkedList extends Structure<String> {
         ops.get("add").put("data", Argumentable.String);
         ops.get("add").put("prev", Argumentable.Node);
         ops.get("delete").put("toDelete", Argumentable.Node);
-    }
-
-    @Override
-    public boolean setOperation(String name) {
-        if(!ops.containsKey(name))
-            return false;
-        operation = name;
-        return true;
-    }
-
-    @Override
-    public boolean setArgument(String name, Object value) {
-        if(!ops.get(operation).containsKey(name))
-            return false;
-        args.put(name, value);
-        return true;
     }
 
     @Override
