@@ -11,8 +11,12 @@ import java.util.HashMap;
  *  setOperation tells us what we are doing
  *  setArgument is called to fill the arguments for our operation
  */
-public abstract class Structure<E> {
-    private HashMap<String, HashMap<String, Argumentable>> operations;
+public abstract class Structure<E> implements Renderable {
+    protected HashMap<String, HashMap<String, Argumentable>> operations;
+
+    public Structure() {
+        this.operations = new HashMap<>();
+    }
 
     /**
      * @param name Name of the operation to be done
