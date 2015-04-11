@@ -1,7 +1,7 @@
-package main.java.Model;
+package model;
 
-import main.java.Util.Argumentable;
-import main.java.Util.Node;
+import util.Argumentable;
+import util.Node;
 
 import java.util.HashMap;
 
@@ -58,7 +58,7 @@ public class SinglyLinkedList extends Structure<String> {
     }
 
     private class _Node{
-        protected main.java.Util.Node data;
+        protected Node data;
         protected _Node next;
         protected _Node(Node<String> data, _Node next){
             this.data = data;

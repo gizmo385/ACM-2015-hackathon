@@ -1,6 +1,6 @@
-package main.java.Model;
+package model;
 
-import main.java.Util.Argumentable;
+import util.Argumentable;
 
 import java.util.HashMap;
 

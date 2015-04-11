@@ -1,3 +1,10 @@
+package Controller;
+
+import java.util.Map;
+
+import util.Argumentable ;
+import model.Structure;
+
 public class Controller {
 
     public String[] numArgs(String method) {
@@ -10,4 +17,9 @@ public class Controller {
         }
     }
 
+    public String[] getArgs(Structure structure) {
+        Map<String, Map<String, Argumentable>> operations = structure.getOperations();
+
+        return null;
+    }
 }
