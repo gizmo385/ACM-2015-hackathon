@@ -54,7 +54,7 @@ public class BinaryTree extends Structure<String>{
 
     private Node root;
 
-    private boolean add(String data){
+    public boolean add(String data){
         return addHelp(root, data);
     }
 
