@@ -19,7 +19,7 @@ public class BinaryTree {
 
     final Node root = null;
 
-    private boolean add(String data){
+    public boolean add(String data){
         return addHelp(root, data);
     }
 
@@ -44,7 +44,7 @@ public class BinaryTree {
         return false;
     }
 
-    private boolean delete(Node toDelete) {
+    public boolean delete(Node toDelete) {
         return deleteHelp(root, toDelete.data);
     }
 
