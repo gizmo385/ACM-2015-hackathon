@@ -6,6 +6,7 @@ import util.Node;
 import java.util.HashMap;
 
 import java.awt.Graphics;
+import java.awt.Polygon;
 
 /**
  * Created by jkoike on 4/10/15.
@@ -77,8 +78,23 @@ public class SinglyLinkedList extends Structure<String> {
     }
 
     public void render(Graphics g) {
-        //TODO Actually do the thing
-        g.drawOval(100, 100, 60, 60);
+        _Node tmp = head;
+        int currentX = 20;
+        int currentY = 50;
+
+        Polygon arrowHead = new Polygon();
+        arrowHead.addPoint( 0,5);
+        arrowHead.addPoint( -5, -5);
+        arrowHead.addPoint( 5,-5);
+
+        while( tmp.data != null && tmp.next != null ) {
+            // Draw the node
+            g.drawRect(currentX, currentY, 60, 60);
+
+            // Draw the arrow
+            g.drawRect(currentX + 60, currentY, 20, 1);
+            g.drawPolygon(arrowHead);
+        }
     }
 
     private class _Node{
