@@ -10,9 +10,13 @@ import java.util.HashMap;
  */
 public class SinglyLinkedList extends Structure<String> {
     final _Node head;
+    HashMap<String, Object> args;
+    String operation;
+    HashMap<String, HashMap<String, Argumentable>> ops;
     public SinglyLinkedList(){
         head = new _Node(null, null);
-        HashMap<String, HashMap<String, Argumentable>> ops = new HashMap<>();
+        args = new HashMap<>();
+        ops = new HashMap<>();
         ops.put("add", new HashMap<>());
         ops.put("delete", new HashMap<>());
         ops.get("add").put("data", Argumentable.String);
@@ -22,12 +26,23 @@ public class SinglyLinkedList extends Structure<String> {
 
     @Override
     public boolean setOperation(String name) {
-        return false;
+        if(!ops.containsKey(name))
+            return false;
+        operation = name;
+        return true;
     }
 
     @Override
     public boolean setArgument(String name, Object value) {
-        return false;
+        if(!ops.get(operation).containsKey(name))
+            return false;
+        args.put(name, value);
+        return true;
+    }
+
+    @Override
+    public String go() {
+        return null;
     }
 
     private void add(String value, Node position){
@@ -35,9 +50,11 @@ public class SinglyLinkedList extends Structure<String> {
         while(!tmp.data.equals(position)){
             if(tmp.next == null){
                 tmp.next = new _Node(new Node<>(value), null);
+                return;
             }
             else tmp = tmp.next;
         }
+        tmp.next = new _Node(new Node<>(value), null);
     }
 
     private class _Node{
