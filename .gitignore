@@ -175,3 +175,15 @@ $RECYCLE.BIN/
 hs_err_pid*
 
 
+### https://raw.github.com/github/gitignore/2bf7d8a77a73f7ef7089db449feafada0549af10/Gradle.gitignore
+
+.gradle
+build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+
