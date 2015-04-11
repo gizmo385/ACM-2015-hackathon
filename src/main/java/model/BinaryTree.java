@@ -1,6 +1,7 @@
 package model;
 
 import util.Argumentable;
+import util.Config;
 import util.Tuple;
 
 import java.awt.*;
@@ -12,12 +13,9 @@ import java.util.HashMap;
 public class BinaryTree extends Structure<String>{
     int maxDepth = 0;
 
-    HashMap<String, Object> args;
-    String operation;
     HashMap<Node, Tuple<Integer, Integer>> map;
     public BinaryTree(){
-        root = new Node("HEAD", null, null);
-        args = new HashMap<>();
+        root = null;
         map = new HashMap<>();
         operations.put("add", new HashMap<>());
         operations.put("delete", new HashMap<>());
@@ -29,7 +27,7 @@ public class BinaryTree extends Structure<String>{
     public String go() {
         System.out.println("Operation: "+operation+", Args: ");
         for(String arg : args.keySet())
-            System.out.println(arg+", "+args.get(arg));
+            System.out.println(arg+", "+args.get(arg).toString());
         switch(operation){
             case "add":
                 return add((String)args.get("data"))?null:"Failed?";
@@ -51,13 +49,33 @@ public class BinaryTree extends Structure<String>{
     }
 
     private void draw(Node n, Graphics g){
-
+        int x = map.get(n).two * Config.D_WIDTH / ((int)Math.pow(map.get(n).one, 2) + 1)+60;
+        int y = map.get(n).one * Config.D_HEIGHT/ ((maxDepth > 0)?maxDepth:1);
+        System.out.println("Printing "+n.data+" at "+x+", "+y);
+        g.drawRect(x/2, y/2, 60, 60);
+        if(n.data != null){
+            g.drawString(n.data, x/2 + 3, y/2 + 30);
+        }
+        if(n.left != null){
+            int xL = map.get(n.left).two * Config.D_WIDTH / (int)(Math.pow(map.get(n.left).one, 2) + 1)+120;
+            int yL = map.get(n.left).one * Config.D_HEIGHT/ maxDepth;
+            g.drawLine(x/2, (y+60)/2, xL/2, yL/2);
+            draw(n.left, g);
+        }
+        if(n.right != null){
+            int xR = map.get(n.right).two * Config.D_WIDTH / ((int)Math.pow(map.get(n.right).one, 2) + 1)+120;
+            int yR = map.get(n.right).one * Config.D_HEIGHT/ maxDepth;
+            g.drawLine(x/2, (y+60)/2, xR/2, yR/2);
+            draw(n.right, g);
+        }
     }
 
     @Override
     public void render(Graphics g) {
-        index(root, 0, 1);
-        draw(root, g);
+        if(root != null) {
+            index(root, 0, 1);
+            draw(root, g);
+        }
     }
 
     private class Node {
@@ -79,9 +97,9 @@ public class BinaryTree extends Structure<String>{
     }
 
     private boolean addHelp(Node node, String data) {
-        if ( node.data.equals(data) || (node.left == null && node.right == null) ) {
-            return false;
-        } else if ( data.compareTo(node.data) < 0 ) {
+        if(root == null)
+            root = new Node(data, null, null);
+        else if ( data.compareTo(node.data) < 0 ) {
             if (node.left == null) {
                 node.left = new Node(data, null, null);
                 return true;
@@ -96,7 +114,7 @@ public class BinaryTree extends Structure<String>{
                 addHelp(node.right, data);
             }
         }
-        return false;
+        return true;
     }
 
     private Node parent = null;

@@ -3,6 +3,7 @@ package view;
 import controller.Controller;
 import model.SinglyLinkedList;
 import model.RenderableArray;
+import model.BinaryTree;
 import util.Config;
 
 import javax.swing.*;
@@ -60,11 +61,12 @@ public class DataStructuresFrame extends JFrame implements ActionListener {
 
         final String LINKED_LIST = "Linked List";
         final String GROWABLE_ARRAY = "Growable Array";
+        BinaryTree bst = new BinaryTree();
+        Controller.addStructure("Binary Search Treee", bst);
 
         Controller.addStructure("LinkedList", sll);
         Controller.addStructure("Array", ra);
         Controller.setStructure("Array");
-
         DataStructuresFrame dsf = new DataStructuresFrame();
 
         dsf.setVisible(true);

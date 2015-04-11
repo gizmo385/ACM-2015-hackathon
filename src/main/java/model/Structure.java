@@ -26,6 +26,7 @@ public abstract class Structure<E> implements Renderable {
      * @return True if the operation exists and is possible, false otherwise
      */
     public boolean setOperation(String name) {
+        System.out.println("Set operation to "+name);
         if(!operations.containsKey(name))
             return false;
         operation = name;
@@ -39,6 +40,7 @@ public abstract class Structure<E> implements Renderable {
      * @return True if the argument exists and is being set to a valid value, false otherwise
      */
     public boolean setArgument(String name, Object value) {
+        System.out.println("Set argument "+name+ " to "+value.toString());
         if(!operations.get(operation).containsKey(name))
             return false;
         args.put(name, value);
