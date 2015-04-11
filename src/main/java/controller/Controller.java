@@ -12,10 +12,20 @@ import java.util.Map;
 
 public class Controller {
 
-    private static Structure<?> structure;
+    private static HashMap<String, Structure> structures = new HashMap<>();
+    private static Structure<?> currentStructure;
 
-    public static <E> void setStructure( Structure<E> structure ) {
-        Controller.structure = structure;
+    public static <E> void addStructure(String structureName, Structure<E> structure ) {
+        structures.put(structureName, structure);
+        currentStructure = structure;
+    }
+
+    public static void setStructure(String structureName) {
+        currentStructure = structures.get(structureName);
+    }
+
+    public static String[] getStructureNames() {
+        return structures.keySet().toArray(new String[structures.size()]);
     }
 
     /**
@@ -39,7 +49,7 @@ public class Controller {
      * by this visualizer
      */
     public static Argumentable[] getArgs(String method) {
-        HashMap<String, HashMap<String, Argumentable>> operations = structure.getOperations();
+        HashMap<String, HashMap<String, Argumentable>> operations = currentStructure.getOperations();
         HashMap<String, Argumentable> operationArgs = operations.get(method);
 
         int numValues = operationArgs.values().size();
@@ -48,7 +58,7 @@ public class Controller {
     }
 
     public static HashMap<String, Argumentable> getMethod(String methodName) {
-        return structure.getOperations().get(methodName);
+        return currentStructure.getOperations().get(methodName);
     }
 
     /**
@@ -57,7 +67,7 @@ public class Controller {
      * @return An array of strings representing usable methods in the visualization.
      */
     public static String[] getMethods() {
-        HashMap<String, HashMap<String, Argumentable>> operations = structure.getOperations();
+        HashMap<String, HashMap<String, Argumentable>> operations = currentStructure.getOperations();
         return (String[]) operations.keySet().toArray(new String[operations.size()]);
     }
 
@@ -68,7 +78,7 @@ public class Controller {
      * @return null on success, String with error on failure
      */
     public static String execute() {
-        return structure.go();
+        return currentStructure.go();
     }
 
     /**
@@ -78,7 +88,7 @@ public class Controller {
      * @param g The graphics object that painting is being done to.
      */
     public static void renderStructure(Graphics g) {
-        structure.render(g);
+        currentStructure.render(g);
     }
 
     /**
@@ -88,7 +98,7 @@ public class Controller {
      * @param operationName The name of the method being evaluated
      */
     public static void setOperation(String operationName) {
-        structure.setOperation(operationName);
+        currentStructure.setOperation(operationName);
     }
 
     /**
@@ -99,6 +109,6 @@ public class Controller {
      * @param value The value of the argument
      */
     public static void setArgument(String argName, Object value) {
-        structure.setArgument(argName, value);
+        currentStructure.setArgument(argName, value);
     }
 }
