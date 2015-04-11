@@ -1,14 +1,13 @@
-package main.java.Model;
 
-import main.java.Util.Argumentable;
-import main.java.Util.Node;
+import Util.Argumentable;
+import Util.Node;
 
 import java.util.HashMap;
 
 /**
  * Created by jkoike on 4/10/15.
  */
-public class SinglyLinkedList extends Structure<String> {
+public class SinglyLinkedList extends Model.Structure<String> {
     final _Node head;
     HashMap<String, Object> args;
     String operation;
@@ -42,19 +41,41 @@ public class SinglyLinkedList extends Structure<String> {
 
     @Override
     public String go() {
-        return null;
+        String res = null;
+        switch (operation){
+            case "add":
+                return add((String) args.get("data"), (Node) args.get("prev"));
+            case "delete":
+                return delete((Node)args.get("toDelete"));
+        }
+        return "Invalid Operation!";
     }
 
-    private void add(String value, Node position){
+    private String add(String value, Node position){
         _Node tmp = head;
         while(!tmp.data.equals(position)){
             if(tmp.next == null){
                 tmp.next = new _Node(new Node<>(value), null);
-                return;
+                return null;
             }
             else tmp = tmp.next;
         }
         tmp.next = new _Node(new Node<>(value), null);
+        return null;
+    }
+
+    private String delete(Node toDelete){
+        _Node tmp = head;
+        while(!tmp.data.equals(toDelete)){
+            if(tmp.next == null){
+                return "Node never existed!";
+            }
+            else tmp = tmp.next;
+        }
+        _Node tmp1 = tmp.next;
+        tmp.next = tmp.next.next;
+        tmp1.next = null;
+        return null;
     }
 
     private class _Node{

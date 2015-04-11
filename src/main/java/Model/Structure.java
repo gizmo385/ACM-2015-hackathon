@@ -1,6 +1,6 @@
-package main.java.Model;
+package Model;
 
-import main.java.Util.Argumentable;
+import Util.Argumentable;
 
 import java.util.HashMap;
 
@@ -26,7 +26,13 @@ public abstract class Structure<E> {
      * @return True if the argument exists and is being set to a valid value, false otherwise
      */
     public abstract boolean setArgument(String name, Object value);
-    public abstract String go(); // Does the thing. Returns null if success, fail message if fail
+
+    /**
+     * Does the thing
+     * @return null if the thing succeeded, a message saying why the thing didn't succeed otherwise
+     * (The thing is operation)
+     */
+    public abstract String go();
 
     /**
      *

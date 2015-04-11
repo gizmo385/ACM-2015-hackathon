@@ -1,4 +1,4 @@
-package main.java.Util;
+package Util;
 
 /**
  * Created by jkoike on 4/10/15.
