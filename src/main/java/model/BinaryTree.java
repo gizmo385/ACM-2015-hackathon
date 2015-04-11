@@ -44,8 +44,57 @@ public class BinaryTree {
         return false;
     }
 
-    private Node delete(Node toDelete) {
-        
+    private boolean delete(Node toDelete) {
+        return deleteHelp(root, data);
+    }
+
+    private Node parent = null;
+    private boolean deleteHelp(Node node, String data) {
+        if (node == null) {
+            return false;
+        }
+        if (node.data.compareTo(data) == 0) {
+
+            if ((node.left == null) && (node.right == null)) {
+                // leaf node
+                node = null;
+                return true;
+            }
+
+            if ((node.left != null) && (node.right != null)) {
+                // node with two children
+                node.data = findMinimumAndReturnWithDelete(node.right);
+                return true;
+            }
+
+            // either left child or right child
+            if (node.left != null) {
+                parent.left = node.left;
+                node = null;
+                return true;
+            }
+
+            if (node.right != null) {
+                parent.right = node.right;
+                node = null;
+                return true;
+            }
+        }
+        parent = node;
+        if (node.data.compareTo(data) > 0) {
+            return deleteNodeBST(node.left, data);
+        } else {
+            return deleteNodeBST(node.right, data);
+        }
+    }
+
+    private String findMinimumAndReturnWithDelete(Node node) {
+        if (node.left == null) {
+            String v = node.data;
+            node = null;
+            return v;
+        }
+        return findMinimumAndReturnWithDelete(node.left);
     }
 
 }
