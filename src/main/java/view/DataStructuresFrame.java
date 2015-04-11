@@ -2,25 +2,24 @@ package view;
 
 import controller.Controller;
 import model.SinglyLinkedList;
+import util.Config;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class DataStructuresFrame extends JFrame {
 
-    // Window properties
-    private final static int WIDTH = 700, HEIGHT = 600;
 
     public DataStructuresFrame() {
         // Frame properties
-        super.setSize(WIDTH, HEIGHT);
+        super.setSize(Config.WIDTH, Config.HEIGHT);
         super.setLayout( new FlowLayout() );
         super.setDefaultCloseOperation( WindowConstants.EXIT_ON_CLOSE );
         super.setLocationRelativeTo( null );
         super.setResizable( false );
 
         // Components and component properties
-        DrawingPanel drawingPanel = new DrawingPanel(WIDTH - 5, 300);
+        DrawingPanel drawingPanel = new DrawingPanel(Config.D_WIDTH, Config.D_HEIGHT);
         ControlsPanel controlPanel = new ControlsPanel(this, 300, 300);
         controlPanel.setLocation(0, 305);
 
