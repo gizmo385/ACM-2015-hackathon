@@ -10,29 +10,26 @@ import model.SinglyLinkedList;
 public class DataStructuresFrame extends JFrame {
 
     // Window properties
-    private final static int WIDTH = 500, HEIGHT = 500;
+    private final static int WIDTH = 700, HEIGHT = 600;
 
     // Window components
     private DrawingPanel drawingPanel;
     private ControlsPanel controlPanel;
 
     public DataStructuresFrame() {
-        initComponents();
-        initFrame();
-    }
-
-    private void initComponents() {
-        this.drawingPanel = new DrawingPanel(300, 300);
-        this.controlPanel = new ControlsPanel(100, 100);
-    }
-
-    private void initFrame() {
+        // Frame properties
         super.setSize(WIDTH, HEIGHT);
         super.setLayout( new FlowLayout() );
         super.setDefaultCloseOperation( EXIT_ON_CLOSE );
         super.setLocationRelativeTo( null );
         super.setResizable( false );
 
+        // Components and component properties
+        this.drawingPanel = new DrawingPanel(WIDTH - 5, 300);
+        this.controlPanel = new ControlsPanel(300, 300);
+        this.controlPanel.setLocation(0, 305);
+
+        // Add the components to the view
         super.add(this.drawingPanel);
         super.add(this.controlPanel);
     }
