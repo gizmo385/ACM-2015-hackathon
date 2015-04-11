@@ -1,6 +1,7 @@
 package model;
 
 import util.Argumentable;
+import util.Tuple;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -9,12 +10,15 @@ import java.util.HashMap;
  * Created by jkoike on 4/10/15.
  */
 public class BinaryTree extends Structure<String>{
+    int maxDepth = 0;
 
     HashMap<String, Object> args;
     String operation;
+    HashMap<Node, Tuple<Integer, Integer>> map;
     public BinaryTree(){
         root = new Node("HEAD", null, null);
         args = new HashMap<>();
+        map = new HashMap<>();
         operations.put("add", new HashMap<>());
         operations.put("delete", new HashMap<>());
         operations.get("add").put("data", Argumentable.String);
@@ -35,9 +39,25 @@ public class BinaryTree extends Structure<String>{
         }
     }
 
+    private void index(Node node, int depth, int index){
+        if (depth > maxDepth){
+            maxDepth = depth;
+        }
+        map.put(node, new Tuple<>(depth, index));
+        if(node.left != null)
+            index(node.left, depth + 1, index * 2 - 1);
+        if(node.right != null)
+            index(node.right, depth + 1, index * 2);
+    }
+
+    private void draw(Node n, Graphics g){
+
+    }
+
     @Override
     public void render(Graphics g) {
-
+        index(root, 0, 1);
+        draw(root, g);
     }
 
     private class Node {

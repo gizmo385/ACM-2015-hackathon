@@ -3,6 +3,7 @@ package view;
 import controller.Controller;
 import model.SinglyLinkedList;
 import model.RenderableArray;
+import util.Config;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +11,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class DataStructuresFrame extends JFrame implements ActionListener {
-
     // Window properties
     private final static int WIDTH = 700, HEIGHT = 650;
 
@@ -20,7 +20,7 @@ public class DataStructuresFrame extends JFrame implements ActionListener {
 
     public DataStructuresFrame() {
         // Frame properties
-        super.setSize(WIDTH, HEIGHT);
+        super.setSize(Config.WIDTH, Config.HEIGHT);
         super.setLayout( new FlowLayout() );
         super.setDefaultCloseOperation( WindowConstants.EXIT_ON_CLOSE );
         super.setTitle("Data Structures Visualization");
@@ -29,8 +29,8 @@ public class DataStructuresFrame extends JFrame implements ActionListener {
 
 
         // Components and component properties
-        drawingPanel = new DrawingPanel(WIDTH - 5, 500);
-        controlPanel = new ControlsPanel(this, WIDTH - 5, 90);
+        drawingPanel = new DrawingPanel(Config.D_WIDTH, Config.D_HEIGHT);
+        controlPanel = new ControlsPanel(this, Config.C_WIDTH, Config.C_HEIGHT);
         controlPanel.setLocation(0, 305);
 
         // Add the components to the view
