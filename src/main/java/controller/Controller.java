@@ -47,6 +47,10 @@ public class Controller {
         return operationArgs.values().toArray(new Argumentable[numValues]);
     }
 
+    public static HashMap<String, Argumentable> getMethod(String methodName) {
+        return structure.getOperations().get(methodName);
+    }
+
     /**
      * Returns the methods that this structure has that can be used in the visualization.
      *
@@ -57,7 +61,44 @@ public class Controller {
         return (String[]) operations.keySet().toArray(new String[operations.size()]);
     }
 
+    /**
+     * Delegate method for structure.go. This will execute the current operation and supply the
+     * current arguments as specified in the user-defined go method.
+     *
+     * @return null on success, String with error on failure
+     */
+    public static String execute() {
+        return structure.go();
+    }
+
+    /**
+     * Paints the structure to the graphics object. This can be used to paint onto a JPanel or onto
+     * something like a BufferedImage.
+     *
+     * @param g The graphics object that painting is being done to.
+     */
     public static void renderStructure(Graphics g) {
         structure.render(g);
+    }
+
+    /**
+     * Delegate method for structure.setOperation. This will set the object method that arguments
+     * are currently beinge evaluated for.
+     *
+     * @param operationName The name of the method being evaluated
+     */
+    public static void setOperation(String operationName) {
+        structure.setOperation(operationName);
+    }
+
+    /**
+     * Delegate method for structure.setArgument. This will set the argument with a particular name
+     * to be the object supplied. Type checking is not performed.
+     *
+     * @param argName The name of the argument that the value should correspond to
+     * @param value The value of the argument
+     */
+    public static void setArgument(String argName, Object value) {
+        structure.setArgument(argName, value);
     }
 }
