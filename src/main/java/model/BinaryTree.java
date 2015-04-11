@@ -1,9 +1,44 @@
 package model;
 
+import util.Argumentable;
+
+import java.awt.*;
+import java.util.HashMap;
+
 /**
  * Created by jkoike on 4/10/15.
  */
-public class BinaryTree {
+public class BinaryTree extends Structure<String>{
+
+    HashMap<String, Object> args;
+    String operation;
+    public BinaryTree(){
+        root = new Node("HEAD", null, null);
+        args = new HashMap<>();
+        operations.put("add", new HashMap<>());
+        operations.put("delete", new HashMap<>());
+        operations.get("add").put("data", Argumentable.String);
+        operations.get("delete").put("toDelete", Argumentable.String);
+    }
+
+    @Override
+    public String go() {
+        System.out.println("Operation: "+operation+", Args: ");
+        for(String arg : args.keySet())
+            System.out.println(arg+", "+args.get(arg));
+        switch(operation){
+            case "add":
+                return add((String)args.get("data"))?null:"Failed?";
+            case "delete":
+                return delete(root, (String)args.get("toDelete"))?null:"Failed?";
+            default: return null;
+        }
+    }
+
+    @Override
+    public void render(Graphics g) {
+
+    }
 
     private class Node {
         String data;
@@ -44,12 +79,8 @@ public class BinaryTree {
         return false;
     }
 
-    private boolean delete(Node toDelete) {
-        return deleteHelp(root, toDelete.data);
-    }
-
     private Node parent = null;
-    private boolean deleteHelp(Node node, String data) {
+    private boolean delete(Node node, String data) {
         if (node == null) {
             return false;
         }
@@ -82,9 +113,9 @@ public class BinaryTree {
         }
         parent = node;
         if (node.data.compareTo(data) > 0) {
-            return deleteHelp(node.left, data);
+            return delete(node.left, data);
         } else {
-            return deleteHelp(node.right, data);
+            return delete(node.right, data);
         }
     }
 
