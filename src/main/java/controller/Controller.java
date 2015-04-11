@@ -1,9 +1,9 @@
-package Controller;
+package controller;
+
+import model.Structure;
+import util.Argumentable;
 
 import java.util.Map;
-
-import util.Argumentable ;
-import model.Structure;
 
 public class Controller {
 

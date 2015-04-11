@@ -42,19 +42,38 @@ public class SinglyLinkedList extends Structure<String> {
 
     @Override
     public String go() {
-        return null;
+        switch(operation){
+            case "add":
+                return add((String)args.get("value"), (Node)args.get("prev"));
+            case "delete":
+                return delete((Node)args.get("toDelete"));
+            default: return null;
+        }
     }
 
-    private void add(String value, Node position){
+    private String add(String value, Node position){
         _Node tmp = head;
         while(!tmp.data.equals(position)){
             if(tmp.next == null){
                 tmp.next = new _Node(new Node<>(value), null);
-                return;
+                return null;
             }
             else tmp = tmp.next;
         }
         tmp.next = new _Node(new Node<>(value), null);
+        return null;
+    }
+
+    private String delete(Node toDelete){
+        _Node tmp = head;
+        while(!tmp.data.equals(toDelete)){
+            if(tmp.next == null){
+                return "Node never existed!";
+            }
+            else tmp = tmp.next;
+        }
+        tmp.next = tmp.next.next;
+        return null;
     }
 
     private class _Node{
