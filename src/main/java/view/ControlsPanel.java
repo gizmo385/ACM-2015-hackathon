@@ -15,6 +15,8 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import model.Structure;
@@ -34,7 +36,7 @@ public class ControlsPanel extends JPanel implements ActionListener, WindowListe
         Border lineBorder = BorderFactory.createLineBorder(Color.black, 5);
         super.setBorder( BorderFactory.createTitledBorder(lineBorder, "Controls"));
 
-        initPanel();
+        reloadButtons();
     }
 
     @Override
@@ -42,7 +44,8 @@ public class ControlsPanel extends JPanel implements ActionListener, WindowListe
         return new Dimension(WIDTH, HEIGHT);
     }
 
-    private void initPanel() {
+    public void reloadButtons() {
+        removeAll();
         String[] methods = Controller.getMethods();
 
         for( String methodName : methods ) {
@@ -74,7 +77,7 @@ public class ControlsPanel extends JPanel implements ActionListener, WindowListe
         String errorMessage = Controller.execute();
 
         if( errorMessage == null ) {
-            JOptionPane.showMessageDialog(this, "The method executed successfully!", "Success!", JOptionPane.INFORMATION_MESSAGE);
+            //JOptionPane.showMessageDialog(this, "The method executed successfully!", "Success!", JOptionPane.INFORMATION_MESSAGE);
             parent.repaint();
         } else {
             JOptionPane.showMessageDialog(this, "The execution failed with the following error: " + errorMessage, "Error!", JOptionPane.ERROR_MESSAGE);
